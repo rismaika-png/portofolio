@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil – Risma Ika Nur Faidah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0a2342;
+      --mid: #1a4a7a;
+      --sky: #5bafd6;
+      --pale: #c8e6f5;
+      --white: #f5faff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--navy) 0%, var(--mid) 60%, var(--sky) 100%);
+      font-family: 'DM Sans', sans-serif;
+      position: relative;
+      padding: 40px 20px 60px;
+    }
+
+    .sky-bg { position: fixed; inset: 0; z-index: 0;
+      background: linear-gradient(170deg, #0a2342 0%, #1a4a7a 50%, #5bafd6 85%, #c8e6f5 100%); }
+    .clouds { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+    .cloud {
+      position: absolute; background: rgba(255,255,255,0.13);
+      border-radius: 50px; filter: blur(18px);
+      animation: drift var(--speed,40s) linear infinite;
+    }
+    .cloud::before,.cloud::after{content:'';position:absolute;background:inherit;border-radius:50%;}
+    .cloud::before{width:60%;height:160%;top:-40%;left:15%;}
+    .cloud::after{width:45%;height:130%;top:-25%;right:10%;}
+    @keyframes drift{from{transform:translateX(-120%)}to{transform:translateX(110vw)}}
+
+    .container { position:relative; z-index:10; max-width:600px; margin:0 auto; }
+
+    /* Back button */
+    .back-btn {
+      display:inline-flex; align-items:center; gap:7px;
+      color:rgba(255,255,255,0.7); font-size:0.82rem;
+      text-decoration:none; margin-bottom:28px;
+      transition:color 0.2s;
+    }
+    .back-btn:hover{color:#fff;}
+    .back-btn svg{width:16px;height:16px;fill:currentColor;}
+
+    /* Profile header */
+    .profile-header {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 28px;
+      padding: 36px 32px 28px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 24px 60px rgba(10,35,66,0.4);
+      animation: fadeUp 0.7s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .avatar {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sky), var(--mid));
+      margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem;
+      box-shadow: 0 8px 28px rgba(91,175,214,0.45);
+      border: 3px solid rgba(255,255,255,0.3);
+    }
+
+    .profile-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem; color: #fff; margin-bottom: 4px;
+    }
+    .profile-sub {
+      font-size: 0.82rem; color: var(--pale);
+      font-weight: 300; letter-spacing: 0.04em;
+    }
+
+    .divider {
+      width:50px; height:3px;
+      background:linear-gradient(90deg,var(--sky),var(--pale));
+      border-radius:2px; margin:16px auto;
+    }
+
+    /* Info card */
+    .info-card {
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 24px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      box-shadow: 0 16px 40px rgba(10,35,66,0.3);
+      animation: fadeUp 0.7s cubic-bezier(.22,1,.36,1) both;
+      animation-delay: 0.1s;
+    }
+
+    .section-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 18px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .section-label::after {
+      content:''; flex:1; height:1px;
+      background:linear-gradient(90deg,rgba(91,175,214,0.4),transparent);
+    }
+
+    .info-grid {
+      display: grid; gap: 14px;
+    }
+    .info-row {
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .info-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: rgba(91,175,214,0.18);
+      display:flex; align-items:center; justify-content:center;
+      font-size: 0.95rem; flex-shrink:0;
+    }
+    .info-content { flex:1; }
+    .info-key {
+      font-size: 0.7rem; color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em; margin-bottom: 2px;
+    }
+    .info-val {
+      font-size: 0.9rem; color: #fff; font-weight: 400;
+    }
+
+    /* Nav menu */
+    .nav-menu {
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 24px;
+      padding: 22px 28px;
+      margin-bottom: 16px;
+      box-shadow: 0 16px 40px rgba(10,35,66,0.3);
+      animation: fadeUp 0.7s cubic-bezier(.22,1,.36,1) both;
+      animation-delay: 0.2s;
+    }
+
+    .nav-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 16px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .nav-label::after {
+      content:''; flex:1; height:1px;
+      background:linear-gradient(90deg,rgba(91,175,214,0.4),transparent);
+    }
+
+    .nav-btns { display:flex; gap:12px; flex-wrap:wrap; }
+
+    .nav-btn {
+      flex:1; min-width:120px;
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      padding: 18px 14px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 18px;
+      color: #fff; text-decoration: none;
+      font-family:'DM Sans',sans-serif;
+      font-size: 0.85rem; font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      background: rgba(91,175,214,0.22);
+      border-color: rgba(91,175,214,0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(91,175,214,0.25);
+    }
+    .nav-btn-icon { font-size: 1.5rem; }
+
+    @keyframes fadeUp {
+      from{opacity:0;transform:translateY(30px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    .footer-note {
+      text-align:center; margin-top:30px;
+      font-size:0.72rem; color:rgba(255,255,255,0.25);
+      letter-spacing:0.08em; position:relative; z-index:10;
+    }
+  </style>
+</head>
+<body>
+<div class="sky-bg"></div>
+<div class="clouds" id="clouds"></div>
+
+<div class="container">
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    Kembali ke Beranda
+  </a>
+
+  <!-- Header -->
+  <div class="profile-header">
+    <div class="avatar">🌿</div>
+    <h1 class="profile-name">Risma Ika Nur Faidah</h1>
+    <p class="profile-sub">D4 – Teknik Pengolahan Limbah · PPNS</p>
+    <div class="divider"></div>
+    <p style="font-size:0.8rem;color:rgba(255,255,255,0.5);">NRP 1025040055 · Kelas PL2B</p>
+  </div>
+
+  <!-- Info Pribadi -->
+  <div class="info-card">
+    <p class="section-label">Informasi Pribadi</p>
+    <div class="info-grid">
+      <div class="info-row">
+        <div class="info-icon">👤</div>
+        <div class="info-content">
+          <p class="info-key">Nama Lengkap</p>
+          <p class="info-val">Risma Ika Nur Faidah</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🎓</div>
+        <div class="info-content">
+          <p class="info-key">Program Studi</p>
+          <p class="info-val">D4 – Teknik Pengolahan Limbah</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🪪</div>
+        <div class="info-content">
+          <p class="info-key">NRP</p>
+          <p class="info-val">1025040055</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🏫</div>
+        <div class="info-content">
+          <p class="info-key">Kelas</p>
+          <p class="info-val">PL2B</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🎂</div>
+        <div class="info-content">
+          <p class="info-key">Tempat, Tanggal Lahir</p>
+          <p class="info-val">Jombang, 10 Juni 2007</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">📍</div>
+        <div class="info-content">
+          <p class="info-key">Asal</p>
+          <p class="info-val">Jombang, Jawa Timur</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">✉️</div>
+        <div class="info-content">
+          <p class="info-key">Email</p>
+          <p class="info-val">rismaika100607@gmail.com</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">📱</div>
+        <div class="info-content">
+          <p class="info-key">No. Telepon</p>
+          <p class="info-val">085864981349</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🎵</div>
+        <div class="info-content">
+          <p class="info-key">Hobi</p>
+          <p class="info-val">Hiking, Rafting, Menyanyi</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🌱</div>
+        <div class="info-content">
+          <p class="info-key">Minat</p>
+          <p class="info-val">Konservasi & Advokasi Lingkungan</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-menu">
+    <p class="nav-label">Jelajahi Lebih Lanjut</p>
+    <div class="nav-btns">
+      <a href="skill.html" class="nav-btn">
+        <span class="nav-btn-icon">⚙️</span>
+        Skill
+      </a>
+      <a href="hobi.html" class="nav-btn">
+        <span class="nav-btn-icon">🏔️</span>
+        Hobi
+      </a>
+      <a href="pengalaman.html" class="nav-btn">
+        <span class="nav-btn-icon">🌟</span>
+        Pengalaman
+      </a>
+    </div>
+  </div>
+</div>
+
+<p class="footer-note">© 2025 Risma Ika Nur Faidah · PPNS</p>
+
+<script>
+  const cloudsEl = document.getElementById('clouds');
+  const cloudData = [
+    {w:260,h:60,top:8,speed:60,opacity:0.10,delay:0},
+    {w:380,h:75,top:30,speed:85,opacity:0.07,delay:-25},
+    {w:200,h:50,top:60,speed:50,opacity:0.12,delay:-12},
+    {w:320,h:65,top:80,speed:75,opacity:0.08,delay:-40},
+  ];
+  cloudData.forEach(c=>{
+    const el=document.createElement('div');
+    el.className='cloud';
+    el.style.cssText=`width:${c.w}px;height:${c.h}px;top:${c.top}%;opacity:${c.opacity};--speed:${c.speed}s;animation-delay:${c.delay}s;`;
+    cloudsEl.appendChild(el);
+  });
+</script>
+</body>
+</html>
