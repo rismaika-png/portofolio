@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portofolio – Risma Ika Nur Faidah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0a2342;
+      --mid: #1a4a7a;
+      --sky: #5bafd6;
+      --pale: #c8e6f5;
+      --white: #f5faff;
+      --cloud: rgba(255,255,255,0.82);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--navy) 0%, var(--mid) 55%, var(--sky) 100%);
+      font-family: 'DM Sans', sans-serif;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* ── Animated sky background ── */
+    .sky-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background: linear-gradient(170deg, #0a2342 0%, #1a4a7a 50%, #5bafd6 85%, #c8e6f5 100%);
+    }
+
+    /* Stars */
+    .stars { position: fixed; inset: 0; z-index: 1; }
+    .star {
+      position: absolute; border-radius: 50%;
+      background: #fff; opacity: 0;
+      animation: twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+    }
+    @keyframes twinkle {
+      0%,100%{opacity:0;transform:scale(0.8)}
+      50%{opacity:var(--op,0.7);transform:scale(1.2)}
+    }
+
+    /* Clouds */
+    .clouds { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+    .cloud {
+      position: absolute;
+      background: rgba(255,255,255,0.18);
+      border-radius: 50px;
+      filter: blur(18px);
+      animation: drift var(--speed, 40s) linear infinite;
+    }
+    .cloud::before, .cloud::after {
+      content:''; position:absolute;
+      background: inherit; border-radius: 50%;
+    }
+    .cloud::before { width:60%; height:160%; top:-40%; left:15%; }
+    .cloud::after  { width:45%; height:130%; top:-25%; right:10%; }
+
+    @keyframes drift {
+      from { transform: translateX(-120%); }
+      to   { transform: translateX(110vw); }
+    }
+
+    /* Card */
+    .card {
+      position: relative; z-index: 10;
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 32px;
+      padding: 56px 52px 52px;
+      max-width: 480px; width: 90%;
+      box-shadow: 0 32px 80px rgba(10,35,66,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+      text-align: center;
+      animation: fadeUp 1s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(40px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--sky), var(--pale));
+      color: var(--navy);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 18px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.3rem;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .title em {
+      font-style: italic;
+      color: var(--pale);
+    }
+
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--sky), var(--pale));
+      border-radius: 2px;
+      margin: 20px auto;
+    }
+
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .prodi {
+      font-size: 0.85rem;
+      color: var(--pale);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+
+    .location {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 6px;
+    }
+    .location svg { width:13px; height:13px; fill:var(--sky); flex-shrink:0; }
+
+    /* Cloud deco inside card */
+    .cloud-deco {
+      margin: 28px auto 0;
+      display: flex; justify-content: center; gap: 8px;
+      opacity: 0.25;
+    }
+    .cloud-deco span {
+      display:block; background:#fff; border-radius:20px;
+      filter: blur(3px);
+    }
+
+    /* Buttons */
+    .btn-group { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; }
+
+    .btn {
+      display: block; width: 100%;
+      padding: 15px 28px;
+      border-radius: 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--sky) 0%, #3a8fbf 100%);
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(91,175,214,0.45);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px rgba(91,175,214,0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.28);
+      color: #fff;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .btn-icon { margin-right: 8px; font-size: 1.05em; }
+
+    /* Footer note */
+    .footer-note {
+      position: fixed; bottom: 22px; left: 0; right: 0;
+      text-align: center; z-index: 10;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="sky-bg"></div>
+<div class="stars" id="stars"></div>
+<div class="clouds" id="clouds"></div>
+
+<div class="card">
+  <div class="badge">✦ Portofolio Mahasiswa ✦</div>
+
+  <h1 class="title">Halo, Saya<br><em>Risma Ika.</em></h1>
+  <div class="divider"></div>
+
+  <p class="name">Risma Ika Nur Faidah</p>
+  <p class="prodi">D4 – Teknik Pengolahan Limbah · PPNS</p>
+  <span class="location">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+    Jombang, Jawa Timur
+  </span>
+
+  <div class="btn-group">
+    <a href="profil.html" class="btn btn-primary">
+      <span class="btn-icon">👤</span> Lihat Profil
+    </a>
+    <a href="arsip.html" class="btn btn-secondary">
+      <span class="btn-icon">📂</span> Arsip Tugas TIK
+    </a>
+  </div>
+</div>
+
+<p class="footer-note">© 2025 Risma Ika Nur Faidah · PPNS</p>
+
+<script>
+  // Generate stars
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 3 + 1;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*70}%;
+      left:${Math.random()*100}%;
+      --d:${2+Math.random()*4}s;
+      --delay:${Math.random()*5}s;
+      --op:${0.4+Math.random()*0.6};
+    `;
+    starsEl.appendChild(s);
+  }
+
+  // Generate clouds
+  const cloudsEl = document.getElementById('clouds');
+  const cloudData = [
+    {w:220,h:55,top:10,speed:55,opacity:0.12,delay:0},
+    {w:340,h:70,top:22,speed:80,opacity:0.09,delay:-20},
+    {w:180,h:45,top:38,speed:45,opacity:0.15,delay:-10},
+    {w:280,h:60,top:55,speed:70,opacity:0.08,delay:-35},
+    {w:400,h:80,top:68,speed:90,opacity:0.07,delay:-50},
+    {w:150,h:40,top:80,speed:40,opacity:0.13,delay:-5},
+  ];
+  cloudData.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'cloud';
+    el.style.cssText = `
+      width:${c.w}px; height:${c.h}px;
+      top:${c.top}%;
+      opacity:${c.opacity};
+      --speed:${c.speed}s;
+      animation-delay:${c.delay}s;
+    `;
+    cloudsEl.appendChild(el);
+  });
+</script>
+</body>
+</html>
